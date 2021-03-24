@@ -10,6 +10,9 @@
 
 <div class="container">
     <h1>Welcome, ${sessionScope.user.username}!</h1>
+    <form action="/profile/create" method="get">
+        <button type="submit">Edit Profile</button>
+    </form>
 </div>
 
 </body>

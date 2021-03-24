@@ -3,6 +3,7 @@ package com.codeup.adlister.controllers;
 import com.codeup.adlister.dao.DaoFactory;
 import com.codeup.adlister.models.Ad;
 import com.codeup.adlister.models.User;
+import com.codeup.adlister.models.UserProfile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,5 +26,14 @@ public class CreateProfileServlet extends HttpServlet{
 
     }
 
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        com.codeup.adlister.models.User creatingProfile = (User)  request.getSession().getAttribute("user");
+        UserProfile profile = new UserProfile(
+                request.getParameter("profile_pic"),
+                request.getParameter("about"),
+                creatingProfile.getId()
+        );
+        DaoFactory.getUserProfilesDao().insert(profile);
+        response.sendRedirect("/profile");
+    }
 }
